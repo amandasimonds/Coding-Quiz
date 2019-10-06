@@ -11,6 +11,7 @@ var counter = document.getElementById("counter");
 var timeGauge = document.getElementById("timeGauge");
 var progress = document.getElementById("progress");
 var scoreDiv = document.getElementById("score");
+var timeOut = document.getElementById("timeOut");
 
 //questions
 
@@ -66,23 +67,11 @@ var questions = [
 
   var lastQuestion = questions.length - 1;
   var runningQuestion = 0;
-  var count = 0
-  var questionTime = 15; //15 seconds
-  var gaugeWidth = 150;
-  var gaugeUnit = gaugeWidth / questionTime;
+  var count = 10;
+  var quizTime = 75; //15 seconds
+  var gaugeWidth = 750;
+  var gaugeUnit = gaugeWidth / quizTime;
   var score = 0;
-
-  //render a question
-  function renderQuestion(){
-      var q = questions[runningQuestion];
-      question.innerHTML = "<p>" + q.question + "</p>";
-      choiceA.innerHTML = q.choiceA;
-      choiceB.innerHTML = q.choiceB;
-      choiceC.innerHTML = q.choiceC;
-      choiceD.innerHTML = q.choiceD;
-  }
-
- start.addEventListener("click", startQuiz); 
 
 //start quiz  
 function startQuiz(){
@@ -94,6 +83,18 @@ function startQuiz(){
     TIMER = setInterval(renderCounter, 1000);
 }
 
+start.addEventListener("click", startQuiz); 
+
+  //render a question
+  function renderQuestion(){
+      var q = questions[runningQuestion];
+      question.innerHTML = "<p>" + q.question + "</p>";
+      choiceA.innerHTML = q.choiceA;
+      choiceB.innerHTML = q.choiceB;
+      choiceC.innerHTML = q.choiceC;
+      choiceD.innerHTML = q.choiceD;
+  }
+
   //render progress
   function renderProgress(){
       for ( qIndex = 0; qIndex <= lastQuestion; qIndex++){
@@ -101,23 +102,21 @@ function startQuiz(){
       }
   }
 
-  //counter render
+  //render COUNTER
   function renderCounter(){
-      if (count <= questionTime){
+      if (count <= quizTime){
           counter.innerHTML = count;
-          timeGauge.style.width = count + gaugeUnit + "px";
-          count++;
+          timeGauge.style.width = count - gaugeUnit - "1px";
+          count--;
       } else {
-          count = 0;
-          if(runningQuestion < lastQuestion){
-          runningQuestion++;
-          renderQuestion();
-          console.log("next question beech!");
+          if(count <= 0){
+        
+          console.log("quiz is over!");
         }
       }
   }
 
-  //check answer
+  //check answer function
   function checkAnswer (answer){
       if (answer == questions[runningQuestion].correct){
           score++;
@@ -127,9 +126,10 @@ function startQuiz(){
       } else {
           //change check bar to red
           answerIsWrong();
+          //subtract 10 seconds
+          count = count - 10;
           console.log("you're wrong:(");
       }
-      count = 0
       if(runningQuestion < lastQuestion) {
           runningQuestion++;
           renderQuestion();

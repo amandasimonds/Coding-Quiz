@@ -10,7 +10,7 @@ var choiceD = document.getElementById("D");
 var counter = document.getElementById("counter");
 var timeGauge = document.getElementById("timeGauge");
 var progress = document.getElementById("progress");
-var scoreDiv = document.getElementById("score");
+var scoreDiv = document.getElementById("scoreContainer");
 var quizDone = document.getElementById("quizDone");
 
 //questions
@@ -67,7 +67,7 @@ var questions = [
 
   var lastQuestion = questions.length - 1;
   var runningQuestion = 0;
-  var count = 5;
+  var count = 75;
   var quizTime = 75; //15 seconds
   var gaugeWidth = 750;
   var gaugeUnit = quizTime / gaugeWidth;
@@ -86,6 +86,7 @@ function startQuiz(){
 function quizOver(){
     quiz.style.display = "none";
     quizDone.style.display = "block";
+    console.log("~~~quiz over~~~")
 }
 
 start.addEventListener("click", startQuiz); 
@@ -115,10 +116,11 @@ start.addEventListener("click", startQuiz);
           count--;
       }
 
-      if (count == -1){
+      if (count <= -1){
           clearInterval(TIMER);
           console.log("time is up!");
           quizOver();
+          renderScore();
       }
       }
 
@@ -132,14 +134,21 @@ start.addEventListener("click", startQuiz);
       } else {
           //change check bar to red
           answerIsWrong();
-          //subtract 10 seconds
-          count = count - 10;
+          //subtract 15 seconds
+          count = count - 15;
           console.log("you're wrong:(");
       }
       if(runningQuestion < lastQuestion) {
           runningQuestion++;
           renderQuestion();
           console.log("next question beech!");
+      } else {
+          //end the quiz and show the score
+          clearInterval(TIMER);
+        //   getTimeRemaining();
+          quizOver();
+          renderScore();
+
       }
   }
 
@@ -150,4 +159,21 @@ start.addEventListener("click", startQuiz);
 
   function answerIsWrong(){
     document.getElementById(runningQuestion).style.backgroundColor = "red";
+}
+
+//render score
+function renderScore (){
+    scoreDiv.style.display = "block";
+    var scorePoints = "";
+    scoreDiv.innerHTML += "<p>" + scorePoints + "YOUR SCORE HERE" + "</p>";
+    console.log("time to +-x/+calculate/x-+ score");
+
+    //calculate score
+}
+
+function getTimeRemaining(){
+    return 
+
+    console.log("calculated time remaining");
+    console.log(endtime);
 }

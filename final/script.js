@@ -11,7 +11,7 @@ var counter = document.getElementById("counter");
 var timeGauge = document.getElementById("timeGauge");
 var progress = document.getElementById("progress");
 var scoreDiv = document.getElementById("score");
-var timeOut = document.getElementById("timeOut");
+var quizDone = document.getElementById("quizDone");
 
 //questions
 
@@ -67,7 +67,7 @@ var questions = [
 
   var lastQuestion = questions.length - 1;
   var runningQuestion = 0;
-  var count = 10;
+  var count = 5;
   var quizTime = 75; //15 seconds
   var gaugeWidth = 750;
   var gaugeUnit = quizTime / gaugeWidth;
@@ -83,7 +83,10 @@ function startQuiz(){
     TIMER = setInterval(renderCounter, 1000);
 }
 
-function quizOver(){}
+function quizOver(){
+    quiz.style.display = "none";
+    quizDone.style.display = "block";
+}
 
 start.addEventListener("click", startQuiz); 
 

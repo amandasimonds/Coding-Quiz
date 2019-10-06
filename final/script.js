@@ -70,7 +70,7 @@ var questions = [
   var count = 10;
   var quizTime = 75; //15 seconds
   var gaugeWidth = 750;
-  var gaugeUnit = gaugeWidth / quizTime;
+  var gaugeUnit = quizTime / gaugeWidth;
   var score = 0;
 
 //start quiz  
@@ -82,6 +82,8 @@ function startQuiz(){
     renderCounter();
     TIMER = setInterval(renderCounter, 1000);
 }
+
+function quizOver(){}
 
 start.addEventListener("click", startQuiz); 
 
@@ -108,13 +110,14 @@ start.addEventListener("click", startQuiz);
           counter.innerHTML = count;
           timeGauge.style.width = count - gaugeUnit - "1px";
           count--;
-      } else {
-          if(count <= 0){
-        
-          console.log("quiz is over!");
-        }
       }
-  }
+
+      if (count == -1){
+          clearInterval(TIMER);
+          console.log("time is up!");
+          quizOver();
+      }
+      }
 
   //check answer function
   function checkAnswer (answer){

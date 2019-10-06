@@ -43,10 +43,26 @@ var questions = [
 var lastQuestionIndex = questions.length - 1;
 var runningQuestionIndex = 0;
 
+start.addEventListener("click", startQuiz);
+
+function startQuiz () {
+  start.style.display= "none";
+  counterRender();
+  TIMER = setInterval(counterRender, 1000);
+  progressRender();
+  renderQuestion();
+  quiz.style.display = "block";
+}
+
+function scoreRender(){
+  scoreContainer.style.display = "block";
+  var scorePerCent = Math.round(100 * score / questions.length);
+}
+
 //------------------------------------------------//
 //-----Render Question Function------------------//
-function renderQuestion(){
-  var q = questions[runningQuestionIndex];
+function renderQuestion(index){
+  var q = questions[index];
   question.innerHTML = "<p>" + q.question + "<p>";
   choiceA.innerHTML = q.choiceA;
   choiceB.innerHTML = q.choiceB;
@@ -68,18 +84,65 @@ function answerIsCorrect(){
   document.getElementById(runningQuestionIndex).style.backgroundColor = "green";
 }
 
-function answerIsCorrect(){
+function answerIsWrong(){
   document.getElementById(runningQuestionIndex).style.backgroundColor = "red";
 }
+
+//counter variables /////// counter function //////
+var questionTime = 15;
+var gaugeWidth = 150;
+var count = 0;
+var gaugeProgressUnit = gaugeWidth/questionTime;
+var TIMER = setInterval(counterRender, 15000);
+
+function counterRender(){
+  if( count <= questionTime){
+    counter.innerHTML = count;
+    timeGauge.style.width = gaugeProgressUnit * count + "px";
+    count++;
+  } else {
+    count = 0;
+    answerIsWrong();
+    if (runningQuestionIndex < lastQuestionIndex){
+      runningQuestionIndex++;
+      renderQuestion();
+    } else {
+      clearInterval(TIMER);
+      scoreRender();
+    }
+  }
+}
+
+function checkAnswer(answer){
+  if (questions[runningQuestionIndex].correct == answer){
+    score++;
+    answerIsCorrect();
+  } else {
+    answerIsWrong();
+  }
+  if (runningQuestionIndex < lastQuestionIndex){
+    count = 0;
+    runningQuestionIndex++;
+    renderQuestion();
+  } else {
+    clearInterval(TIMER);
+    scoreRender();
+  }
+}
+
 
 
 //questions loop//
 runningQuestionIndex = 0;
 
-for(var i = 0; i < lastQuestionIndex; i++){
-  console.log(renderQuestion(questions[0]));
-  renderQuestion();
-}
+for(var i = 0; i < questions.length; i++){
+  // console.log(renderQuestion(questions[0]));
+  // renderQuestion(i);
+  console.log(questions[i].question);
+  console.log(i);
+};
+
+renderQuestion(1);
 
 
 

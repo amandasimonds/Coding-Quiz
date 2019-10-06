@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Coding Quiz</title>
+</head>
+<body>
+
+    <h1>Welcome to the Coding Quiz</h1>
+
+<div id="container"> 
+
+    <div id="start"> Start Quiz! </div>
+    
+    <!-- //quiz container// -->
+    <div id="quiz" style="">
+            
+            <div id="qImg"><img src=""></div>
+            
+            <div id="question"><p>Question</p></div>
+            
+            <!--Timer Div-->
+            <div id="timer">
+                <div id="counter"> 15 </div>
+                <div id="btimeGauge"></div>
+                <div id="timeGauge"></div>
+            </div>
+            
+            <!--Choices Div-->
+            <div id="choices">
+                <div class="choice" id="A" onclick="checkAnswer('A')">A</div>
+                <div class="choice" id="B" onclick="checkAnswer('B')">B</div>
+                <div class="choice" id="C" onclick="checkAnswer('C')">C</div>
+                <div class="choice" id="D" onclick="checkAnswer('D')">D</div>
+            </div>
+            
+        </div>
+        
+        <!--Progress Div-->
+        <div id="progress">
+            <div class="prog"></div>
+        </div>
+        
+        <!--Score Container-->
+        <div id="scoreContainer" style="display:none;">
+                <img src=""><p>50%</p>
+    </div>
+    
+    
+    
+    
+</div>
+    
+    <script src="script.js"></script>
+    
+</body>
+</html>

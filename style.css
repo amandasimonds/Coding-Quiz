@@ -139,6 +139,23 @@ body{
     margin-right : 5px;
 }
 
+@media only screen and (max-width: 980px) {
+    body {
+      background-color: lightblue;
+    }
 
+    #container, #scoreContainer, #question, #choices {
+        width: 85%;
+        float: left;
+    }
+
+    #container{
+        height: 450px;
+    }
+
+    #question p{
+        float: left;
+    }
+  }
 
 

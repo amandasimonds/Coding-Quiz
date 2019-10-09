@@ -71,7 +71,7 @@ var questions = [
   var quizTime = 75; //15 seconds
   var gaugeWidth = 750;
   var gaugeUnit = quizTime / gaugeWidth;
-  var score = 0;
+  var scorePoints = 0;
 
 //start quiz  
 function startQuiz(){
@@ -127,7 +127,6 @@ start.addEventListener("click", startQuiz);
   //check answer function
   function checkAnswer (answer){
       if (answer == questions[runningQuestion].correct){
-          score++;
           //change check bar to green
           answerIsCorrect();
           console.log("its correct!");
@@ -144,7 +143,6 @@ start.addEventListener("click", startQuiz);
           console.log("next question beech!");
       } else {
           //end the quiz and show the score
-          clearInterval(TIMER);
         //   getTimeRemaining();
           quizOver();
           renderScore();
@@ -164,16 +162,30 @@ start.addEventListener("click", startQuiz);
 //render score
 function renderScore (){
     scoreDiv.style.display = "block";
-    var scorePoints = "";
     scoreDiv.innerHTML += "<p>" + scorePoints + "YOUR SCORE HERE" + "</p>";
     console.log("time to +-x/+calculate/x-+ score");
-
-    //calculate score
+    var score = getTimeRemaining();
+    console.log(getTimeRemaining());
 }
 
-function getTimeRemaining(){
-    return 
-
-    console.log("calculated time remaining");
-    console.log(endtime);
+//get score
+    function getTimeRemaining(){
+        console.log(count);
+        return  count;
 }
+
+//select element for local storage
+var userNameInput = document.querySelector("#user-name");
+var scoreSpan = document.querySelector("#user-score");
+
+//set the local storage for username and score
+localStorage.setItem("userName", userName);
+localStorage.setItem("userScore", scorePoints);
+    
+// get most recent submission
+var lastUserName = localStorage.getItem("userName");
+var lastUserScore = localStorage.getItem("userScore");
+
+userNameInput.textContent = userNameInput.value;
+userScoreSpan.textContent = scorePoints;
+
